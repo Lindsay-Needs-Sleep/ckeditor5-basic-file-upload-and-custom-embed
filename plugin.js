@@ -35,3 +35,5 @@ export class FileUploadAndCustomEmbed extends Plugin {
         } );
     }
 }
+
+export default FileUploadAndCustomEmbed;
