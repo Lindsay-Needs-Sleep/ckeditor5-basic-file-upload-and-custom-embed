@@ -1,0 +1,60 @@
+<div style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 4500;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+">
+    <style>
+        .hover {
+            cursor: pointer;
+        }
+
+        .hover:hover {
+            -webkit-box-shadow: -1px 1px 5px #000;
+            box-shadow: -1px 1px 5px #000;
+        }
+    </style>
+    <div style="
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        max-height: 90vh;
+        max-width: 90vw;
+        background-color: #eddfdf;
+        border-radius: 10px;
+        border: 1px solid #a7a7a7;
+        -webkit-box-shadow: 1px 1px 12px #000;
+        box-shadow: 1px 1px 12px #000;
+    ">
+        <div style="display: flex; justify-content: right;">
+            <div id="close" class="hover" style="
+            background-color: red;
+            border-radius: 0px 10px 0px 10px;
+            padding: 5px;
+            ">[X] close</div>
+        </div>
+        <div style="
+            display: flex;
+            flex-direction:
+            column;
+            margin: 0 20px 20px 20px;
+            overflow: hidden;
+        ">
+            <h1>Add Media and custom POH widgets</h1>
+            Select the type of media/POH widget you'd like to add:
+            <br />
+            <select id="injection-type" type="select"></select>
+            <div id="content" style="
+                flex: 1;
+                overflow-y: auto;
+                margin-top: 10px;
+            ">
+            </div>
+        </div>
+    </div>
+</div>
