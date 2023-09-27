@@ -1,0 +1,25 @@
+version: '3.8'
+name: ckeditor5
+
+services:
+
+    ck5-plugin-file-upload:
+        image: node:18.16.0
+        user: ${CURRENT_HOST_USER_UID}:${CURRENT_HOST_USER_GID}
+        working_dir: /ck5_plugin_src
+        command: bash -c "npm install && sleep infinity"
+        volumes:
+            - type: volume
+              source: ck5-plugin-file-upload
+              target: /ck5_plugin_src
+
+volumes:
+    # Volumes created in /setup-dev.sh
+    ck5-plugin-file-upload:
+        external: true
+        name: ck5-plugin-file-upload
+
+networks:
+    ckeditor-network:
+        name: ckeditor-network
+        external: true

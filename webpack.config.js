@@ -3,6 +3,8 @@
  * For licensing, see LICENSE.md.
  */
 
+/* eslint-env node */
+
 'use strict';
 
 const path = require( 'path' );

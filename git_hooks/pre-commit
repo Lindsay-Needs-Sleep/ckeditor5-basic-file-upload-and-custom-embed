@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Check style and run tests
+./go.sh st
