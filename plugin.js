@@ -3,7 +3,8 @@
  */
 
 import { FileUploadAndCustomEmbed } from './src/index.js';
+import FIELD_TYPES from './src/field-types.js';
 
-export { FileUploadAndCustomEmbed };
+export { FileUploadAndCustomEmbed, FIELD_TYPES };
 
 export default FileUploadAndCustomEmbed;
