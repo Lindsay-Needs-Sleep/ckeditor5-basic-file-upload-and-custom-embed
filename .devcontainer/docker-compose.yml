@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-    ck5-plugin-file-upload-devcontainer:
+    devcontainer-ck5-plugin-file-upload:
         build:
             context: .
             dockerfile: Dockerfile
@@ -14,10 +14,6 @@ services:
         # Overrides default command so things don't shut down after the process ends.
         entrypoint: /usr/local/share/docker-init.sh
         command: sleep infinity
-
-        # ports:
-        # development port (for build debugging)
-        # - "8345:8345"
 
         networks:
             ckeditor-network:
