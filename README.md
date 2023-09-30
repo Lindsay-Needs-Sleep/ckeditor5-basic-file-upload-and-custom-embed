@@ -13,6 +13,8 @@ import { FileUploadAndCustomEmbed } from 'ckeditor5-basic-file-upload-and-custom
 import { FileUploadAndCustomEmbed } from '../plugins/ckeditor5-basic-file-upload-and-custom-embed/plugin.js';
 ```
 
+NOTE: If you are using a local clone and you get a `ckeditor-duplicated-modules` you should make sure this package does not have any other ckeditor packages inside node_modules. (node_modules inside the demo is fine)
+
 
 # Development
 

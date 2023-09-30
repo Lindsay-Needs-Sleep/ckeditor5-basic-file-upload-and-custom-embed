@@ -61,7 +61,6 @@ const FILE_ANY = {
             />
         </p>`);
         fieldEl.querySelector('input').addEventListener('change', function (e) {
-            console.log('file changed', e);
             this._fileUploaded = false;
         });
         return fieldEl;

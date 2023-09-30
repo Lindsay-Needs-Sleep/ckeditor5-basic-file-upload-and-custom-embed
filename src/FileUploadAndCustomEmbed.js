@@ -10,17 +10,17 @@ import GetUserInput from './get-user-input.js';
 import toolbarIcon from './toolbar-icon.svg';
 import CONFIG_DEMO from '../demo/demo-plugin-config.js';
 
-export class FileUploadAndCustomEmbed extends Plugin {
+export default class FileUploadAndCustomEmbed extends Plugin {
     init() {
         const editor = this.editor;
-        const options = this.editor.config.get('basicFileUploadAndCustomEmbed');
+        const options = this.editor.config.get('basicFileUploadAndCustomEmbed') || CONFIG_DEMO;
 
-        editor.ui.componentFactory.add( 'addfile', () => {
+        editor.ui.componentFactory.add('addfile', () => {
             // The button will be an instance of ButtonView.
             const button = new ButtonView();
 
             button.set( {
-                label: 'Add File',
+                label: 'Add File and Custom Embed',
                 tooltip: true,
                 icon: toolbarIcon,
             } );
@@ -44,4 +44,4 @@ export class FileUploadAndCustomEmbed extends Plugin {
         } );
     }
 }
-GetUserInput( CONFIG_DEMO);
+// GetUserInput( CONFIG_DEMO);

@@ -69,7 +69,7 @@ async function ShowPopup (config) {
                 try {
                     await validate.call(field, fieldEl);
                 } catch (error) {
-                // Else add an error message element
+                    // Else add an error message element
                     console.log('Validation Error', error);
                     fieldEl.appendChild(htmlToElement(
                     `<div
@@ -83,8 +83,7 @@ async function ShowPopup (config) {
                             border: 1px solid #ff0303;
                             border-radius: 5px;
                         "
-                    >* ${error.message}</div>`
-                    ));
+                    >* ${error.message}</div>`));
                     formIsValid = false;
                 }
             })).then(() => {

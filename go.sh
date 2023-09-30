@@ -23,6 +23,7 @@ case $1 in
         npm run style-check
         ");;
     *) COMMAND=(bash -c "
+        cd demo &&
         npm install &&
         npm run build
         ");;
