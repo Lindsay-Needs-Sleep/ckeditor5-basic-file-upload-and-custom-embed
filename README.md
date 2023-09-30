@@ -13,7 +13,25 @@ import { FileUploadAndCustomEmbed } from 'ckeditor5-basic-file-upload-and-custom
 import { FileUploadAndCustomEmbed } from '../plugins/ckeditor5-basic-file-upload-and-custom-embed/plugin.js';
 ```
 
-NOTE: If you are using a local clone and you get a `ckeditor-duplicated-modules` you should make sure this package does not have any other ckeditor packages inside node_modules. (node_modules inside the demo is fine)
+NOTE: If you are using a local clone and have installed `node_modules` in this project you will get a `ckeditor-duplicated-modules` unless you either delete the `node_modules` in this project or you force all `import ... '@ckeditor/...` statements to resolve to your main projects `node_modules`.  eg.
+
+`vite.config.js`
+```js
+import * as path from 'path';
+import { defineConfig } from 'vite';
+
+export default defineConfig(() => {
+    return {
+        build: { ... },
+        resolve: {
+            alias: [
+                { find: '@ckeditor', replacement: path.resolve(__dirname, 'node_modules/@ckeditor') },
+            ],
+        },
+        plugins: [ ... ]
+    };
+});
+```
 
 
 # Development

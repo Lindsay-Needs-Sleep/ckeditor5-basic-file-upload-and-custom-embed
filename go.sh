@@ -14,11 +14,11 @@ COMMAND_OPTION=${@:2}
 case $1 in
     i) COMMAND=(bash);;
     s) COMMAND=(bash -c "
-        npm install --only=dev &&
+        npm install &&
         npm run style-fix
         ");;
     st) COMMAND=(bash -c "
-        npm install --only=dev &&
+        npm install &&
         echo 'For style errors, run \"./go.sh s\" to autofix' &&
         npm run style-check
         ");;
