@@ -1,7 +1,7 @@
 /* eslint-env node */
 module.exports = {
     root: true,
-    ignorePatterns: ['**/node_modules/*', 'dist/*',],
+    ignorePatterns: ['**/node_modules/*', 'demo/public/*',],
     env: {
         browser: true,
         es2021: true,
