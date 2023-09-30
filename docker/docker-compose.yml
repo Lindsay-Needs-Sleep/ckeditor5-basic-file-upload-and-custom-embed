@@ -8,6 +8,9 @@ services:
         user: ${CURRENT_HOST_USER_UID}:${CURRENT_HOST_USER_GID}
         working_dir: /ck5_plugin_src
         command: bash -c "npm install && sleep infinity"
+        ports:
+            # component development port
+            - "8345:8345"
         volumes:
             - type: volume
               source: ck5-plugin-file-upload
