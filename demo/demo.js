@@ -1,28 +1,31 @@
-/**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md.
- */
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor.js';
+import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
+import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials.js';
+import Heading from '@ckeditor/ckeditor5-heading/src/heading.js';
+import List from '@ckeditor/ckeditor5-list/src/list.js';
+import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
 
-import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
-import { Essentials } from '@ckeditor/ckeditor5-essentials';
-import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
-import { Heading } from '@ckeditor/ckeditor5-heading';
-import { List } from '@ckeditor/ckeditor5-list';
-import { Bold, Italic } from '@ckeditor/ckeditor5-basic-styles';
 
-import { FileUploadAndCustomEmbed } from '../plugin.js';
+// import FileUploadAndCustomEmbed } from '../plugin.js';
 import basicFileUploadAndCustomEmbedConfig from './demo-plugin-config.js';
 
 
 ClassicEditor
-    .create( document.querySelector( '#editor' ), {
-        plugins: [ Essentials, Paragraph, Heading, List, Bold, Italic, FileUploadAndCustomEmbed ],
-        toolbar: [ 'heading', 'bold', 'italic', 'numberedList', 'bulletedList', 'timestamp' ],
+    .create(document.querySelector('#editor'), {
+        plugins: [
+            Essentials,
+            Paragraph,
+            Heading,
+            List,
+            Bold,
+            // FileUploadAndCustomEmbed
+        ],
+        toolbar: [
+            'heading', 'bold', 'numberedList', 'bulletedList',
+            // 'addFile',
+        ],
         basicFileUploadAndCustomEmbed: basicFileUploadAndCustomEmbedConfig,
-    } )
-    .then( editor => {
+    })
+    .then(editor => {
         console.log( 'Editor was initialized', editor );
-    } )
-    .catch( error => {
-        console.error( error.stack );
-    } );
+    });

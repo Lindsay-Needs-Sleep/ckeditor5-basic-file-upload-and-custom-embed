@@ -14,18 +14,18 @@ COMMAND_OPTION=${@:2}
 case $1 in
     i) COMMAND=(bash);;
     s) COMMAND=(bash -c "
-        npm install &&
+        npm install --only=dev &&
         npm run style-fix
         ");;
     st) COMMAND=(bash -c "
-        npm install &&
+        npm install --only=dev &&
         echo 'For style errors, run \"./go.sh s\" to autofix' &&
         npm run style-check
         ");;
     *) COMMAND=(bash -c "
         cd demo &&
         npm install &&
-        npm run build
+        npm run dev
         ");;
 esac
 
