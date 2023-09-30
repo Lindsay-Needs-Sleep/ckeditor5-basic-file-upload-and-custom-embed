@@ -1,13 +1,8 @@
-/**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md.
- */
-
-import { Plugin } from '@ckeditor/ckeditor5-core';
-import { ButtonView } from '@ckeditor/ckeditor5-ui';
+import Plugin from '@ckeditor/ckeditor5-core/src/plugin.js';
+import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview.js';
 
 import GetUserInput from './get-user-input.js';
-import toolbarIcon from './toolbar-icon.svg';
+import toolbarIcon from './toolbar-icon.svg?raw';
 import CONFIG_DEMO from '../demo/demo-plugin-config.js';
 
 export default class FileUploadAndCustomEmbed extends Plugin {
@@ -37,11 +32,11 @@ export default class FileUploadAndCustomEmbed extends Plugin {
 
                     //Insert the text at the user's current position
                     editor.model.insertContent( writer.createText( now.toString() ) );
-                } );
-            } );
+                });
+            });
 
             return button;
-        } );
+        });
     }
 }
 // GetUserInput( CONFIG_DEMO);

@@ -5,8 +5,7 @@ import Heading from '@ckeditor/ckeditor5-heading/src/heading.js';
 import List from '@ckeditor/ckeditor5-list/src/list.js';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
 
-
-// import FileUploadAndCustomEmbed } from '../plugin.js';
+import FileUploadAndCustomEmbed from '../plugin.js';
 import basicFileUploadAndCustomEmbedConfig from './demo-plugin-config.js';
 
 
@@ -18,11 +17,11 @@ ClassicEditor
             Heading,
             List,
             Bold,
-            // FileUploadAndCustomEmbed
+            FileUploadAndCustomEmbed
         ],
         toolbar: [
             'heading', 'bold', 'numberedList', 'bulletedList',
-            // 'addFile',
+            'addFile',
         ],
         basicFileUploadAndCustomEmbed: basicFileUploadAndCustomEmbedConfig,
     })

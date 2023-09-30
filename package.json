@@ -1,4 +1,8 @@
 {
+    "dependencies": {
+        "@ckeditor/ckeditor5-core": "^38.0.1",
+        "@ckeditor/ckeditor5-ui": "^38.0.1"
+    },
     "devDependencies": {
         "eslint": "8.7.x"
     },

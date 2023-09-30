@@ -20,7 +20,16 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
                 name: 'bundle',
             },
             rollupOptions: {
-                // external: ['@ckeditor/ckeditor5-core'],
+                // external: [
+                //     '@ckeditor/ckeditor5-core',
+                //     fileURLToPath(
+                //         new URL(
+                //             'src/some-local-file-that-should-not-be-bundled.js',
+                //             import.meta.url
+                //         )
+                //     ),
+                //     /node_modules/
+                // ]
                 // , '@ckeditor/ckeditor5-ui', '@ckeditor/ckeditor5-utils', '@ckeditor/ckeditor5-upload', '@ckeditor/ckeditor5-vue', '@ckeditor/ckeditor5-vue2', '@ckeditor/ckeditor5-vue-component', '@ckeditor/ckeditor5-vue-ui', '@ckeditor/ckeditor5-watchdog', 'vue', 'vue2'],
                 output: {
                     // Name output css file
