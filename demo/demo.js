@@ -11,12 +11,14 @@ import { List } from '@ckeditor/ckeditor5-list';
 import { Bold, Italic } from '@ckeditor/ckeditor5-basic-styles';
 
 import { FileUploadAndCustomEmbed } from '../plugin.js';
+import basicFileUploadAndCustomEmbedConfig from './demo-plugin-config.js';
 
 
 ClassicEditor
     .create( document.querySelector( '#editor' ), {
         plugins: [ Essentials, Paragraph, Heading, List, Bold, Italic, FileUploadAndCustomEmbed ],
-        toolbar: [ 'heading', 'bold', 'italic', 'numberedList', 'bulletedList', 'timestamp' ]
+        toolbar: [ 'heading', 'bold', 'italic', 'numberedList', 'bulletedList', 'timestamp' ],
+        basicFileUploadAndCustomEmbed: basicFileUploadAndCustomEmbedConfig,
     } )
     .then( editor => {
         console.log( 'Editor was initialized', editor );

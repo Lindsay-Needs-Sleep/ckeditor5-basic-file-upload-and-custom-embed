@@ -6,8 +6,9 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
 import { ButtonView } from '@ckeditor/ckeditor5-ui';
 
-import GetContentToInsert from './client-handler.js';
+import GetUserInput from './get-user-input.js';
 import toolbarIcon from './toolbar-icon.svg';
+import CONFIG_DEMO from '../demo/demo-plugin-config.js';
 
 export class FileUploadAndCustomEmbed extends Plugin {
     init() {
@@ -26,8 +27,8 @@ export class FileUploadAndCustomEmbed extends Plugin {
 
             //Execute a callback function when the button is clicked
             button.on('execute', async () => {
-                const content = await GetContentToInsert();
-                if (!content) return; // User canceled the popup
+                const data = await GetUserInput(options);
+                if (!data) return; // User canceled the popup
 
                 const now = new Date();
 
@@ -43,4 +44,4 @@ export class FileUploadAndCustomEmbed extends Plugin {
         } );
     }
 }
-GetContentToInsert();
+GetUserInput( CONFIG_DEMO);
