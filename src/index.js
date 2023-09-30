@@ -12,6 +12,7 @@ import toolbarIcon from './toolbar-icon.svg';
 export class FileUploadAndCustomEmbed extends Plugin {
     init() {
         const editor = this.editor;
+        const options = this.editor.config.get('basicFileUploadAndCustomEmbed');
 
         editor.ui.componentFactory.add( 'addfile', () => {
             // The button will be an instance of ButtonView.

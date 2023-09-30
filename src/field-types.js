@@ -1,90 +1,113 @@
 /**
  * Some pre-defined field types.
  * Can use them in in field type definitions, or mimic them to create your own.
+ */
+
+/**
+ * Field types may have thier own specific required values.  See REaDME.md for details.
+ * To create a custom type these are the always required attributes
  *
- * To create a custom type these are the required attributes:
+ * key {string} - The key to be used in the data object.
  *
- * createfieldEl {function (id, name, options)}
- * @param {string} id - The id to use for the input element.
- * (A lable will be created and tied to this id "<label for="id">")
- * Returns an html element to be used as the input field in the form.
+ * createfieldEl {function ()}
+ * @returns {HTMLElement} - The html element to be used as the input in the form.
+ * Should include any required labeling/info.
+ *
+ * validate {async function (fieldEl, formEl)}
+ * (optional) If defined, should check the field for validation errors.
+ * @param {HTMLElement} fieldEl - The element created by createfieldEl.
+ * @param {HTMLElement} formEl - the entire form element incase the result depends on other fields.
+ * @returns {true|string} - true if validation has passed, otherwise return a
+ * string decribing the validation error.
  *
  * submit {async function (fieldEl, formEl)}
  * Called after validation has passed.
  * Should return a value to be used to create the resulting html for the editor.
- * @param {HTMLElement} fieldEl - The inputl element created by createfieldEl.
+ * @param {HTMLElement} fieldEl - The element created by createfieldEl.
  * @param {HTMLElement} formEl - the entire form element incase the result depends on other fields.
- * @param {object} fieldDefinition - The full field definition incase some
- * extra values/options are needed.
  * @returns {*} - The data to be used for this field for creating the html component.
  */
 
 import { htmlToElement } from './utils.js';
 
 const TEXT_INPUT = {
-    name: 'caption',
+    key: 'text',
     label: 'Text Input',
     createfieldEl: function () {
-        const id = `${this.name}-${Math.random().toString(36).substr(2, 9)}`;
         return htmlToElement(`<p>
-            <label for="${id}">${this.label}:</label>
+            <label for="${this.key}">${this.label}:</label>
             <input
                 type="text"
-                id="${id}"
+                id="${this.key}"
                 name="${this.name}"
             />
         </p>`);
     },
-    validate: async function (fieldEl, formEl) {
-        return true;
-    },
     submit: async function (fieldEl, formEl) {
-        return fieldEl.value;
+        return fieldEl.querySelector('input').value;
     },
 };
 
 const FILE_ANY = {
+    key: 'file',
+    label: 'Upload a file',
     accepts_file_types: [],
-    createfieldEl: function (id, name, fieldDefinition) {
-        const input = htmlToElement(`<input
-            type="file"
-            id="${id}"
-            name="${name}"
-            accept="${this.accepts_file_types.join(', ')}"}"
-        />`);
-        return input;
+    createfieldEl: function () {
+        const fieldEl = htmlToElement(`<p>
+            <label for="${this.key}">${this.label}:</label>
+            <input
+                type="file"
+                id="${this.key}"
+                name="${this.key}"
+                accept="${this.accepts_file_types.join(', ')}"}"
+            />
+        </p>`);
+        fieldEl.querySelector('input').addEventListener('change', function (e) {
+            console.log('file changed', e);
+            this._fileUploaded = false;
+        });
+        return fieldEl;
     },
-    submit: async function (fieldEl, formEl, fieldDefinition) {
-        // input.addEventListener('change', async function onSomething (e) {
-        //     let file = input.files[0];
+    validate: async function (fieldEl, formEl) {
+        const file = fieldEl.querySelector('input').files[0];
+        if (!file) throw new Error('File is required.');
 
-        //     var formData = new FormData();
-        //     formData.append('media', file);
+        // If we have already uploaded this file. We're good.
+        if (this._fileUploaded) return true;
 
-        //     var xhr = new XMLHttpRequest();
-        //     xhr.file = file; // not necessary if you create scopes like this
-        //     xhr.addEventListener('progress', function(e) {
-        //         var done = e.position || e.loaded, total = e.totalSize || e.total;
-        //         console.log('xhr progress: ' + (Math.floor(done/total*1000)/10) + '%');
-        //     }, false);
-        //     if ( xhr.upload ) {
-        //         xhr.upload.onprogress = function(e) {
-        //             var done = e.position || e.loaded, total = e.totalSize || e.total;
-        //             console.log('xhr.upload progress: ' + done + ' / ' + total + ' = ' + (Math.floor(done/total*1000)/10) + '%');
-        //         };
-        //     }
-        //     xhr.onreadystatechange = function(e) {
-        //         if ( 4 == this.readyState ) {
-        //             console.log(['xhr upload complete', e]);
-        //         }
-        //     };
+        this._fileUrl = await this._uploadFile(file);
+        // Mark that the file has been uploaded so we don't upload it again.
+        this._fileUploaded = true;
+    },
+    submit: async function (fieldEl, formEl) {
+        // We've already uploaded the file in validate, so just return the url.
+        return this._fileUrl;
+    },
+    _uploadFile: async function (file) {
+        const csrftoken = await window.cookieStore.get('csrftoken');
+        return new Promise((resolve, reject) => {
+            var formData = new FormData();
+            formData.append('file', file);
 
-        //     xhr.open('post', '/upload_ckeditor_media', true);
-        //     const csrftoken = await window.cookieStore.get('csrftoken');
-        //     xhr.setRequestHeader('X-CSRFToken', csrftoken.value);
-        //     xhr.send(formData);
+            var xhr = new XMLHttpRequest();
+            xhr.file = file;
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        console.log('xhr 200', xhr.responseText);
+                        resolve(JSON.parse(xhr.responseText).url);
+                    } else {
+                        // Request finished and failed
+                        reject(new Error(`Failed to upload file. (${xhr.status}: ${xhr.statusText})`));
+                    }
+                }
+            };
 
-        // });
+            xhr.open('post', 'http://localhost:8080/upload_ckeditor_media', true);
+            // this.upload_headers.map(([key, value]) => xhr.setRequestHeader(key, value));
+            // xhr.setRequestHeader('X-CSRFToken', csrftoken.value);
+            xhr.send(formData);
+        });
     },
 };
 
@@ -92,13 +115,19 @@ export default {
     FILE_ANY,
     FILE_IMAGE: {
         ...FILE_ANY,
+        key: 'image',
+        label: 'Upload an image',
         accepts_file_types: ['image/*'],
     },
     FILE_AUDIO: {
         ...FILE_ANY,
+        key: 'audio',
+        label: 'Upload an audio file',
         accepts_file_types: ['audio/*'],
     },
     FILE_VIDEO: {
+        key: 'video',
+        label: 'Upload a video file',
         ...FILE_ANY,
         accepts_file_types: ['video/*'],
     },

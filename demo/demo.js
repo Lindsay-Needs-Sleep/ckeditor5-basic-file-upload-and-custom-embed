@@ -10,12 +10,12 @@ import { Heading } from '@ckeditor/ckeditor5-heading';
 import { List } from '@ckeditor/ckeditor5-list';
 import { Bold, Italic } from '@ckeditor/ckeditor5-basic-styles';
 
-import { Timestamp } from './plugin.js';
+import { FileUploadAndCustomEmbed } from '../plugin.js';
 
 
 ClassicEditor
     .create( document.querySelector( '#editor' ), {
-        plugins: [ Essentials, Paragraph, Heading, List, Bold, Italic, Timestamp ],
+        plugins: [ Essentials, Paragraph, Heading, List, Bold, Italic, FileUploadAndCustomEmbed ],
         toolbar: [ 'heading', 'bold', 'italic', 'numberedList', 'bulletedList', 'timestamp' ]
     } )
     .then( editor => {
@@ -24,4 +24,3 @@ ClassicEditor
     .catch( error => {
         console.error( error.stack );
     } );
-	

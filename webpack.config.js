@@ -12,7 +12,7 @@ const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 
 module.exports = {
     // https://webpack.js.org/configuration/entry-context/
-    entry: './demo.js',
+    entry: './demo/demo.js',
 
     // https://webpack.js.org/configuration/output/
     output: {

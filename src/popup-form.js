@@ -1,6 +1,6 @@
 import popupHtml from './popup-form.html?raw';
 import { htmlToElement } from './utils.js';
-import CONFIG from './config.js';
+import CONFIG from '../demo/config.js';
 
 export default async function ShowPopup () {
 
@@ -8,23 +8,23 @@ export default async function ShowPopup () {
         // Get useful elements
         const popupEl = htmlToElement(popupHtml);
         const closeEl = popupEl.querySelector('#close');
-        const injectionTypeEl = popupEl.querySelector('#injection-type');
+        const widgetDefinitionSelectEl = popupEl.querySelector('#widget-select');
         const fieldsetEl = popupEl.querySelector('#fieldset');
 
         // Populate data
         CONFIG.forEach((type, index) => {
             const optionEl = htmlToElement(`<option value="${index}">${type.name}</option>`);
-            injectionTypeEl.appendChild(optionEl);
+            widgetDefinitionSelectEl.appendChild(optionEl);
         });
-        populateForm(fieldsetEl, CONFIG[injectionTypeEl.value]);
+        populateForm(fieldsetEl, CONFIG[widgetDefinitionSelectEl.value]);
 
         // Add event listeners
         closeEl.addEventListener('click', () => {
             popupEl.remove();
             resolve(null);
         });
-        injectionTypeEl.addEventListener('change', () => {
-            populateForm(fieldsetEl, CONFIG[injectionTypeEl.value]);
+        widgetDefinitionSelectEl.addEventListener('change', () => {
+            populateForm(fieldsetEl, CONFIG[widgetDefinitionSelectEl.value]);
         });
 
         // Show the popup!
@@ -72,42 +72,45 @@ function populateForm(fieldsetEl, injectionDefinition) {
         fieldsetEl.querySelectorAll('.form-error').forEach((el) => el.remove());
 
         // Validate each field
+        let formIsValid = true;
         Promise.all(injectionDefinition.inputFields.map(async (field) => {
             const fieldEl = fields[field.key];
-            const validationError = await field.validate(fieldEl, fieldsetEl, field);
-
-            // if no validation error
-            if (validationError === true) return;
-
-            // Else add an error message element
-            fieldEl.appendChild(htmlToElement(
-                `<div
-                class="form-error"
-                style="
-                    width: fit-content;
-                    margin-top: 2px;
-                    padding: 5px;
-                    color: #e32525;
-                    background-color: #fff6f6;
-                    border: 1px solid #ff0303;
-                    border-radius: 5px;
-                "
-                >* ${validationError}</div>`
-            ));
-            // Fail the validation
-            throw new Error('Form validation failed errors');
-
+            const validate = field.validate || (() => true);
+            try {
+                await validate.call(field, fieldEl, fieldsetEl);
+            } catch (error) {
+                // Else add an error message element
+                console.log('Validation Error', error);
+                fieldEl.appendChild(htmlToElement(
+                    `<div
+                        class="form-error"
+                        style="
+                            width: fit-content;
+                            margin-top: 2px;
+                            padding: 5px;
+                            color: #e32525;
+                            background-color: #fff6f6;
+                            border: 1px solid #ff0303;
+                            border-radius: 5px;
+                        "
+                    >* ${error.message}</div>`
+                ));
+                formIsValid = false;
+            }
         })).then(() => {
+            console.log('validation complete', formIsValid);
+            if (!formIsValid) return;
+
             // If all validation passed, pass each field through it's submit handler
             // and build the result object
             const result = {};
             Promise.all(injectionDefinition.inputFields.map(async (field) => {
-                result[field.key] = await field.submit(fields[field.key], fieldsetEl, field);
+                result[field.key] = await field.submit(fields[field.key], fieldsetEl);
             })).then((results) => {
                 console.log('submission complete', result);
 
             });
-        }).catch((error) => {});
+        });
     });
 }
 
