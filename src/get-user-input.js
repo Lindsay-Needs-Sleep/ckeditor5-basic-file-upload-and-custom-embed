@@ -67,7 +67,7 @@ async function ShowPopup (config) {
                 const fieldEl = fieldEls[field.key];
                 const validate = field.validate || (() => true);
                 try {
-                    await validate.call(field, fieldEl, fieldsetEl);
+                    await validate.call(field, fieldEl);
                 } catch (error) {
                 // Else add an error message element
                     console.log('Validation Error', error);
@@ -95,7 +95,7 @@ async function ShowPopup (config) {
                 // and build the result object
                 const result = {};
                 Promise.all(getWidgetDefinition().inputFields.map(async (field) => {
-                    result[field.key] = await field.submit(fieldEls[field.key], fieldsetEl);
+                    result[field.key] = await field.submit(fieldEls[field.key]);
                 })).then((results) => {
                     console.log('submission complete', result);
 

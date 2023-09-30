@@ -13,18 +13,16 @@
  * @returns {HTMLElement} - The html element to be used as the input in the form.
  * Should include any required labeling/info.
  *
- * validate {async function (fieldEl, formEl)}
+ * validate {async function (fieldEl)}
  * (optional) If defined, should check the field for validation errors.
  * @param {HTMLElement} fieldEl - The element created by createfieldEl.
- * @param {HTMLElement} formEl - the entire form element incase the result depends on other fields.
  * @returns {true|string} - true if validation has passed, otherwise return a
  * string decribing the validation error.
  *
- * submit {async function (fieldEl, formEl)}
+ * submit {async function (fieldEl)}
  * Called after validation has passed.
  * Should return a value to be used to create the resulting html for the editor.
  * @param {HTMLElement} fieldEl - The element created by createfieldEl.
- * @param {HTMLElement} formEl - the entire form element incase the result depends on other fields.
  * @returns {*} - The data to be used for this field for creating the html component.
  */
 
@@ -43,7 +41,7 @@ const TEXT_INPUT = {
             />
         </p>`);
     },
-    submit: async function (fieldEl, formEl) {
+    submit: async function (fieldEl) {
         return fieldEl.querySelector('input').value;
     },
 };
@@ -68,7 +66,7 @@ const FILE_ANY = {
         });
         return fieldEl;
     },
-    validate: async function (fieldEl, formEl) {
+    validate: async function (fieldEl) {
         const file = fieldEl.querySelector('input').files[0];
         if (!file) throw new Error('File is required.');
 
@@ -79,7 +77,7 @@ const FILE_ANY = {
         // Mark that the file has been uploaded so we don't upload it again.
         this._fileUploaded = true;
     },
-    submit: async function (fieldEl, formEl) {
+    submit: async function (fieldEl) {
         // We've already uploaded the file in validate, so just return the url.
         return this._fileUrl;
     },
