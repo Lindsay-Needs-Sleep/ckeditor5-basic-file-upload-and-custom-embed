@@ -1,13 +1,14 @@
 {
     "dependencies": {
         "@ckeditor/ckeditor5-core": "^38.0.1",
+        "@ckeditor/ckeditor5-html-embed": "^38.0.1",
         "@ckeditor/ckeditor5-ui": "^38.0.1"
     },
     "devDependencies": {
         "eslint": "8.7.x"
     },
     "name": "ckeditor5-basic-file-upload-and-custom-embed",
-    "version": "38.0.1",
+    "version": "38.0.2",
     "description": "Upload a file to your own backend, and insert the resulting url (with customizable html) into your ckeditor.",
     "main": "plugin.js",
     "scripts": {

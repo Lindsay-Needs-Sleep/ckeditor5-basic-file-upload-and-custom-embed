@@ -3,14 +3,16 @@ import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview.js';
 
 import getCustomHtml from './getCustomHtml.js';
 import toolbarIcon from './toolbar-icon.svg?raw';
-import CONFIG_DEMO from '../demo/demo-plugin-config.js';
 
 export default class FileUploadAndCustomEmbed extends Plugin {
+    static get pluginName() {
+        return 'FileUploadAndCustomEmbed';
+    }
     init() {
         const editor = this.editor;
-        const options = this.editor.config.get('basicFileUploadAndCustomEmbed') || CONFIG_DEMO;
+        const options = this.editor.config.get('basicFileUploadAndCustomEmbed');
 
-        editor.ui.componentFactory.add('addfile', () => {
+        editor.ui.componentFactory.add('addCustomWidget', () => {
             // The button will be an instance of ButtonView.
             const button = new ButtonView();
 
@@ -27,12 +29,13 @@ export default class FileUploadAndCustomEmbed extends Plugin {
                 const html = await getCustomHtml(options);
                 if (!html) return; // User canceled the popup
 
-                //Change the model using the model writer
-                editor.model.change( writer => {
-
-                    //Insert the text at the user's current position
-                    editor.model.insertContent( writer.createText( html ) );
-                });
+                // Quick and dirty, let's spoof the html embed plugin so we
+                // can use its editing capabilities.
+                if (!editor.commands.get('htmlEmbed')) {
+                    console.error('"@ckeditor/ckeditor5-html-embed" plugin must be installed and loaded into your ckeditor config for ckeditor5-basic-file-upload-and-custom-embed to insert the resulting html.');
+                    return;
+                }
+                editor.execute('htmlEmbed', html);
             });
 
             return button;

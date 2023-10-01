@@ -1,5 +1,50 @@
 # ckeditor5-basic-file-upload-and-custom-embed
-Upload a file to your own backend, and insert the resulting url (with customizable html) into your ckeditor.
+Upload a file to your own backend, gather other customizable user input, and insert the resulting url (with customizable html) into your ckeditor.
+
+The plugin adds a button to the toolbar that opens a dialog.
+
+The dialog allows you to select what kind of media/widget you would like to add.
+
+The bottom section of the popup changes to have the appropriate fields.
+
+![preview1](./docs/preview1.png)
+
+On "Add" the plugin inserts your custom html into the document (using the `@ckeditor/ckeditor5-html-embed` plugin).
+
+![preview2](./docs/preview2.PNG)
+
+You can define multiple "widgets", which have different fields, and use the user input to generate different html.
+
+![preview3](./docs/preview3.PNG)
+
+### Config
+
+See [demo/demo-plugin-config.js](./demo/demo-plugin-config.js) for an example plugin config which defines the widgets, their inputs, and the html output.
+
+There are some starter/base inputs you can use/extend here: [src/field-types.js](./src/field-types.js)
+
+```js
+import HtmlEmbed from '@ckeditor/ckeditor5-html-embed/src/htmlembed.js';
+import FileUploadAndCustomEmbed from 'ckeditor5-basic-file-upload-and-custom-embed/plugin.js';
+import widgetConfig from './demo-plugin-config.js';
+
+ClassicEditor
+    .create(document.querySelector('#editor'), {
+        plugins: [
+            HtmlEmbed,
+            FileUploadAndCustomEmbed,
+        ],
+        toolbar: [
+            'addCustomWidget',
+        ],
+        basicFileUploadAndCustomEmbed: basicFileUploadAndCustomEmbedConfig,
+    })
+```
+
+## Dependencies
+
+`@ckeditor/ckeditor5-html-embed` plugin must be installed and loaded into your ckeditor config to insert the custom html.
+
 
 
 ## Installing plugin
@@ -8,9 +53,9 @@ To prevent ckeditor core file conflicts, the plugin source code should be used d
 
 eg.
 ```js
-import { FileUploadAndCustomEmbed } from 'ckeditor5-basic-file-upload-and-custom-embed/plugin.js';
+import FileUploadAndCustomEmbed from 'ckeditor5-basic-file-upload-and-custom-embed/plugin.js';
 // or if you have a local clone
-import { FileUploadAndCustomEmbed } from '../plugins/ckeditor5-basic-file-upload-and-custom-embed/plugin.js';
+import FileUploadAndCustomEmbed from '../plugins/ckeditor5-basic-file-upload-and-custom-embed/plugin.js';
 ```
 
 NOTE: If you are using a local clone and have installed `node_modules` in this project you will get a `ckeditor-duplicated-modules` unless you either delete the `node_modules` in this project or you force all `import ... '@ckeditor/...` statements to resolve to your main projects `node_modules`.  eg.
@@ -32,10 +77,6 @@ export default defineConfig(() => {
     };
 });
 ```
-
-## Config
-
-See `demo/demo-plugin-config.js` for an example plugin config.
 
 
 # Development

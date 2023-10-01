@@ -27,7 +27,7 @@ ClassicEditor
         toolbar: [
             'heading', 'bold', 'numberedList', 'bulletedList',
             '|', 'htmlEmbed', 'sourceEditing', '|',
-            'addFile',
+            'addCustomWidget',
         ],
         basicFileUploadAndCustomEmbed: basicFileUploadAndCustomEmbedConfig,
     })
