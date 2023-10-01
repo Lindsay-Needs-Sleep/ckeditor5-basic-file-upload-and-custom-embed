@@ -4,6 +4,8 @@ import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials.js';
 import Heading from '@ckeditor/ckeditor5-heading/src/heading.js';
 import List from '@ckeditor/ckeditor5-list/src/list.js';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
+import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting.js';
+
 
 import FileUploadAndCustomEmbed from '../plugin.js';
 import basicFileUploadAndCustomEmbedConfig from './demo-plugin-config.js';
@@ -17,10 +19,12 @@ ClassicEditor
             Heading,
             List,
             Bold,
-            FileUploadAndCustomEmbed
+            SourceEditing,
+            FileUploadAndCustomEmbed,
         ],
         toolbar: [
             'heading', 'bold', 'numberedList', 'bulletedList',
+            '|', 'sourceEditing', '|',
             'addFile',
         ],
         basicFileUploadAndCustomEmbed: basicFileUploadAndCustomEmbedConfig,
