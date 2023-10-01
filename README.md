@@ -33,6 +33,10 @@ export default defineConfig(() => {
 });
 ```
 
+## Config
+
+See `demo/demo-plugin-config.js` for an example plugin config.
+
 
 # Development
 

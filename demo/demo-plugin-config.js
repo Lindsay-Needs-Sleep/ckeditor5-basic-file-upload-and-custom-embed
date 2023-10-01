@@ -9,9 +9,18 @@ export default [
                 ...FIELD_TYPES.FILE_IMAGE,
                 key: 'image',
                 label: 'Image',
+                upload_url: '/my/upload_url',
                 upload_headers: {
-                    'X-CSRFToken': 'csrftoken',
+                    'X-CSRFToken': 'csrftokenvalue',
                 },
+                /**
+                 * Overriding FIELD_TYPES.FILE_IMAGE's uploadFile method because
+                 * we don't actually have a server to upload to for the demo.
+                 * So just return the same demo image asset url.
+                 */
+                _uploadFile: async function (file) {
+                    return './demo-img.jpg';
+                }
             },
             {
                 ...FIELD_TYPES.TEXT_INPUT,
@@ -31,7 +40,7 @@ export default [
             {
                 ...FIELD_TYPES.FILE_AUDIO,
                 validate: async function (fieldEl) {
-                    throw new Error('File is required!!!!');
+                    throw new Error('This wdiget definition is an incomplete stub');
                 },
             },
         ],
