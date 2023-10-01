@@ -81,7 +81,6 @@ const FILE_ANY = {
         return this._fileUrl;
     },
     _uploadFile: async function (file) {
-        const csrftoken = await window.cookieStore.get('csrftoken');
         return new Promise((resolve, reject) => {
             var formData = new FormData();
             formData.append('file', file);
@@ -100,9 +99,8 @@ const FILE_ANY = {
                 }
             };
 
-            xhr.open('post', 'http://localhost:8080/upload_ckeditor_media', true);
-            // this.upload_headers.map(([key, value]) => xhr.setRequestHeader(key, value));
-            // xhr.setRequestHeader('X-CSRFToken', csrftoken.value);
+            xhr.open('post', this.upload_url, true);
+            this.upload_headers.map(([key, value]) => xhr.setRequestHeader(key, value));
             xhr.send(formData);
         });
     },
