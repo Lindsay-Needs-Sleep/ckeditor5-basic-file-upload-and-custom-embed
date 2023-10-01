@@ -10,9 +10,10 @@ export default class FileUploadAndCustomEmbed extends Plugin {
     }
     init() {
         const editor = this.editor;
-        const options = this.editor.config.get('basicFileUploadAndCustomEmbed');
+        const options = this.editor.config.get('customEmbedConfiguration');
+        if (!options) throw new Error('"customEmbedConfiguration" must be set in ckeditor options for ckeditor5-basic-file-upload-and-custom-embed to work.');
 
-        editor.ui.componentFactory.add('addCustomWidget', () => {
+        editor.ui.componentFactory.add('addCustomEmbed', () => {
             // The button will be an instance of ButtonView.
             const button = new ButtonView();
 

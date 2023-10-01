@@ -8,8 +8,8 @@ import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
 import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting.js';
 
 
-import FileUploadAndCustomEmbed from '../plugin.js';
-import basicFileUploadAndCustomEmbedConfig from './demo-plugin-config.js';
+import CustomEmbed from '../plugin.js';
+import customEmbedConfig from './demo-plugin-config.js';
 
 
 ClassicEditor
@@ -22,14 +22,14 @@ ClassicEditor
             Bold,
             HtmlEmbed,
             SourceEditing,
-            FileUploadAndCustomEmbed,
+            CustomEmbed,
         ],
         toolbar: [
             'heading', 'bold', 'numberedList', 'bulletedList',
             '|', 'htmlEmbed', 'sourceEditing', '|',
-            'addCustomWidget',
+            'addCustomEmbed',
         ],
-        basicFileUploadAndCustomEmbed: basicFileUploadAndCustomEmbedConfig,
+        customEmbedConfiguration: customEmbedConfig,
     })
     .then(editor => {
         console.log( 'Editor was initialized', editor );

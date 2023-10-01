@@ -39,9 +39,9 @@ ClassicEditor
             FileUploadAndCustomEmbed,
         ],
         toolbar: [
-            'addCustomWidget',
+            'addCustomEmbed',
         ],
-        basicFileUploadAndCustomEmbed: basicFileUploadAndCustomEmbedConfig,
+        customEmbedConfiguration: {...},
     })
 ```
 
