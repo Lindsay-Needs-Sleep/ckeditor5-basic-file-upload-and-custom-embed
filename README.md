@@ -1,5 +1,9 @@
 # ckeditor5-basic-file-upload-and-custom-embed
-Upload a file to your own backend, gather other customizable user input, and insert the resulting url (with customizable html) into your ckeditor.
+Highly customizable ckeditor5 plugin that allows you to gather/validate/transform customizable user input (including uploading files to your own backend), and inserting customizable html into your ckeditor.
+
+This is useful for uploading files to your own backend (optional), and adding customElements / custom html (which are built from multiple user input fields).
+
+## Example
 
 The plugin adds a button to the toolbar that opens a dialog.
 

@@ -5,7 +5,7 @@ export default [
         name: 'Image with Caption',
         buildHtml: function ({ captioned_image, caption }) {
             return `
-                <img src="${captioned_image}">/<img>
+                <img src="${captioned_image}"/>
                 ${caption}
             `;
         },

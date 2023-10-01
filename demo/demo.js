@@ -33,4 +33,9 @@ ClassicEditor
     })
     .then(editor => {
         console.log( 'Editor was initialized', editor );
+        function updateDisplay () {
+            window.document.getElementById('editor-result-display').innerHTML = editor.getData();
+        }
+        updateDisplay();
+        editor.model.document.on('change:data', updateDisplay);
     });
