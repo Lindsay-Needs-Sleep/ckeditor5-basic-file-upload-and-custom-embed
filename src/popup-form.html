@@ -9,57 +9,81 @@
     justify-content: center;
     align-items: center;
 ">
-    <style>
-        .hover {
-            cursor: pointer;
-        }
-
-        .hover:hover {
-            -webkit-box-shadow: -1px 1px 5px #000;
-            box-shadow: -1px 1px 5px #000;
-        }
-    </style>
-    <div style="
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        max-height: 90vh;
-        max-width: 90vw;
-        background-color: #eddfdf;
-        border-radius: 10px;
-        border: 1px solid #a7a7a7;
-        -webkit-box-shadow: 1px 1px 12px #000;
-        box-shadow: 1px 1px 12px #000;
-    ">
-        <div style="display: flex; justify-content: right;">
-            <div id="close" class="hover" style="
-            background-color: red;
-            border-radius: 0px 10px 0px 10px;
-            padding: 5px;
-            ">[X] close</div>
+    <div id="bfuce-popup">
+        <div id="bfuce-close">
+            <div>[X] close</div>
         </div>
-        <div style="
-            display: flex;
-            flex-direction:
-            column;
-            margin: 0 20px 20px 20px;
-            overflow: hidden;
-        ">
+        <div id="bfuce-content">
             <h1>Add Media and custom POH widgets</h1>
             Select the type of media/POH widget you'd like to add:
             <br />
-            <select id="widget-select" type="select"></select>
+            <select></select>
             <form>
-                <fieldset id="fieldset" style="
-                    flex: 1;
-                    overflow-y: auto;
-                    margin-top: 10px;
-                "></fieldset>
-                <div style="display: flex; justify-content: right; margin-top: 10px;">
-                    <button id="submit" type="submit">+ Add</button>
+                <fieldset></fieldset>
+                <div id="bfuce-submit">
+                    <button type="submit">+ Add</button>
                 </div>
             </form>
         </div>
     </div>
-</div>
+    <style>
+        #bfuce-popup {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+            max-width: 90vw;
+            background-color: #eddfdf;
+            border-radius: 10px;
+            border: 1px solid #a7a7a7;
+            -webkit-box-shadow: 1px 1px 12px #000;
+            box-shadow: 1px 1px 12px #000;
+        }
+
+        #bfuce-close {
+            display: flex;
+            justify-content: right;
+        }
+
+        #bfuce-close div {
+            cursor: pointer;
+            background-color: red;
+            border-radius: 0px 10px 0px 10px;
+            padding: 5px;
+        }
+
+        #bfuce-close div:hover {
+            -webkit-box-shadow: -1px 1px 5px #000;
+            box-shadow: -1px 1px 5px #000;
+        }
+
+        #bfuce-content {
+            display: flex;
+            flex-direction: column;
+            margin: 0 20px 20px 20px;
+            overflow: hidden;
+        }
+
+        #bfuce-content fieldset {
+            flex: 1;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+
+        .bfuce-form-error {
+            width: fit-content;
+            margin-top: 2px;
+            padding: 5px;
+            color: #e32525;
+            background-color: #fff6f6;
+            border: 1px solid #ff0303;
+            border-radius: 5px;
+        }
+
+        #bfuce-submit {
+            display: flex;
+            justify-content: right;
+            margin-top: 10px;
+        }
+    </style>
 </div>

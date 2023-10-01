@@ -26,10 +26,10 @@ async function ShowPopup (config) {
     return new Promise((resolve, reject) => {
         // Get useful elements
         const popupEl = htmlToElement(popupHtml);
-        const closeEl = popupEl.querySelector('#close');
-        const widgetDefinitionSelectEl = popupEl.querySelector('#widget-select');
-        const fieldsetEl = popupEl.querySelector('#fieldset');
-        const submitButtonEl = popupEl.querySelector('button[type="submit"]');
+        const closeEl = popupEl.querySelector('#bfuce-close');
+        const widgetDefinitionSelectEl = popupEl.querySelector('select');
+        const fieldsetEl = popupEl.querySelector('fieldset');
+        const submitButtonEl = popupEl.querySelector('#bfuce-submit button');
 
         // helper fn's
         function getWidgetDefinition () {
@@ -59,7 +59,7 @@ async function ShowPopup (config) {
             e.preventDefault();
 
             // Clear previous error message elements
-            fieldsetEl.querySelectorAll('.form-error').forEach((el) => el.remove());
+            fieldsetEl.querySelectorAll('.bfuce-form-error').forEach((el) => el.remove());
 
             // Validate each field
             let formIsValid = true;
@@ -72,18 +72,7 @@ async function ShowPopup (config) {
                     // Else add an error message element
                     console.log('Validation Error', error);
                     fieldEl.appendChild(htmlToElement(
-                    `<div
-                        class="form-error"
-                        style="
-                            width: fit-content;
-                            margin-top: 2px;
-                            padding: 5px;
-                            color: #e32525;
-                            background-color: #fff6f6;
-                            border: 1px solid #ff0303;
-                            border-radius: 5px;
-                        "
-                    >* ${error.message}</div>`));
+                        `<div class="bfuce-form-error">* ${error.message}</div>`));
                     formIsValid = false;
                 }
             })).then(() => {
