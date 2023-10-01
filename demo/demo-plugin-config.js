@@ -3,11 +3,16 @@ import FIELD_TYPES from '../src/field-types.js';
 export default [
     {
         name: 'Image with Caption',
-
+        buildHtml: function ({ captioned_image, caption }) {
+            return `
+                <img src="${captioned_image}">/<img>
+                ${caption}
+            `;
+        },
         inputFields: [
             {
                 ...FIELD_TYPES.FILE_IMAGE,
-                key: 'image',
+                key: 'captioned_image',
                 label: 'Image',
                 upload_url: '/my/upload_url',
                 upload_headers: {
@@ -36,6 +41,9 @@ export default [
     },
     {
         name: 'Audio',
+        buildHtml: function (params) {
+            // TODO
+        },
         inputFields: [
             {
                 ...FIELD_TYPES.FILE_AUDIO,

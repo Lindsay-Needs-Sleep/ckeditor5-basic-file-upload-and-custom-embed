@@ -37,7 +37,7 @@ const TEXT_INPUT = {
             <input
                 type="text"
                 id="${this.key}"
-                name="${this.name}"
+                name="${this.key}"
             />
         </p>`);
     },

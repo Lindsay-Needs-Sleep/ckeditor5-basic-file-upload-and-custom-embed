@@ -2,27 +2,12 @@ import popupHtml from './popup-form.html?raw';
 import { htmlToElement } from './utils.js';
 
 /**
- * Displays a popup form based on the plugin config to gather user input.
+ * Displays a popup form based on the plugin config to gather user input and
+ * build some custom html.
  * @param {object} config
- * @returns {object} - The selected widget type configuration and
- * a dictionary of the collected+validated user input data.
+ * @returns {string} - The resulting custom html.
  */
-export default async function GetUserInput (config) {
-    // Display the popup form to gether user input
-    let popupResult = await ShowPopup(config);
-
-    // User canceled the popup
-    if (!popupResult || !popupResult.widgetData) return null;
-
-    // all good! return the resulting data
-    return {
-        widgetDefinition: popupResult.widgetDefinition,
-        widgetData: popupResult.widgetData,
-    };
-}
-
-async function ShowPopup (config) {
-
+export default async function getCustomHtml (config) {
     return new Promise((resolve, reject) => {
         // Get useful elements
         const popupEl = htmlToElement(popupHtml);
@@ -76,7 +61,6 @@ async function ShowPopup (config) {
                     formIsValid = false;
                 }
             })).then(() => {
-                console.log('validation complete', formIsValid);
                 if (!formIsValid) return;
 
                 // If all validation passed, pass each field through it's submit handler
@@ -84,9 +68,9 @@ async function ShowPopup (config) {
                 const result = {};
                 Promise.all(getWidgetDefinition().inputFields.map(async (field) => {
                     result[field.key] = await field.submit(fieldEls[field.key]);
-                })).then((results) => {
-                    console.log('submission complete', result);
-
+                })).then(() => {
+                    popupEl.remove();
+                    resolve(getWidgetDefinition().buildHtml(result));
                 });
             });
         });
