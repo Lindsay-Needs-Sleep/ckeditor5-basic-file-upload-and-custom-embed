@@ -100,7 +100,7 @@ const FILE_ANY = {
             };
 
             xhr.open('post', this.upload_url, true);
-            for (const [key, value] in Object.entries(this.upload_headers || {})) {
+            for (const [key, value] of Object.entries(this.upload_headers || {})) {
                 xhr.setRequestHeader(key, value);
             }
             xhr.send(formData);
