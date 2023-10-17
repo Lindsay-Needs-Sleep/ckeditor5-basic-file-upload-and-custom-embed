@@ -90,7 +90,6 @@ const FILE_ANY = {
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        console.log('xhr 200', xhr.responseText);
                         resolve(JSON.parse(xhr.responseText).url);
                     } else {
                         // Request finished and failed
