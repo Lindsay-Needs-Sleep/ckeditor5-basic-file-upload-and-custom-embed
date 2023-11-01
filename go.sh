@@ -5,6 +5,9 @@
 #      st - style check and test
 #       i - interactive
 
+# exit on any error, and echo commands
+set -ex
+
 CONTAINER="ck5-plugin-file-upload"
 EXEC="docker compose exec -it ${CONTAINER}"
 
@@ -13,16 +16,16 @@ COMMAND_OPTION=${@:2}
 
 case $1 in
     i) COMMAND=(bash);;
-    s) COMMAND=(bash -c "
+    s) COMMAND=(bash -cex "
         npm install &&
         npm run style-fix
         ");;
-    st) COMMAND=(bash -c "
+    st) COMMAND=(bash -cex "
         npm install &&
         echo 'For style errors, run \"./go.sh s\" to autofix' &&
         npm run style-check
         ");;
-    *) COMMAND=(bash -c "
+    *) COMMAND=(bash -cex "
         cd demo &&
         npm install &&
         npm run dev
