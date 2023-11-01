@@ -60,7 +60,7 @@ const FILE_ANY = {
                 accept="${this.accepts_file_types.join(', ')}"}"
             />
         </p>`);
-        fieldEl.querySelector('input').addEventListener('change', function (e) {
+        fieldEl.querySelector('input').addEventListener('change', (e) => {
             this._fileUploaded = false;
         });
         return fieldEl;
