@@ -46,6 +46,24 @@ const TEXT_INPUT = {
     },
 };
 
+const NUMBER_INPUT = {
+    key: 'number',
+    label: 'Number Input',
+    createfieldEl: function () {
+        return htmlToElement(`<p>
+            <label for="${this.key}">${this.label}:</label>
+            <input
+                type="number"
+                id="${this.key}"
+                name="${this.key}"
+            />
+        </p>`);
+    },
+    submit: async function (fieldEl) {
+        return fieldEl.querySelector('input').value;
+    },
+};
+
 const FILE_ANY = {
     key: 'file',
     label: 'Upload a file',
@@ -128,4 +146,5 @@ export default {
         accepts_file_types: ['video/*'],
     },
     TEXT_INPUT,
+    NUMBER_INPUT,
 };

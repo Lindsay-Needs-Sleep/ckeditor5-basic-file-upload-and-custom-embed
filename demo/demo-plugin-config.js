@@ -51,6 +51,10 @@ export default [
                     throw new Error('This wdiget definition is an incomplete stub');
                 },
             },
+            {
+                ...FIELD_TYPES.NUMBER_INPUT,
+                label: 'Play for x seconds',
+            }
         ],
     },
 ];
